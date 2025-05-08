@@ -26,10 +26,10 @@ ws.append(["Price", "Attributes"])
 
 
 # Scrape listing
-bookscrape=soup.find_all("div", class_="ticket-item")
+emlak=soup.find_all("div", class_="ticket-item")
 
 
-for product in bookscrape:
+for product in emlak:
     
     price_tag = product.find("div", class_="price-ticket")
     attribute_tag = product.find("div", class_="description-ticket")
