@@ -12,19 +12,19 @@ bot = Bot(token=BOT_TOKEN)
 
 #Define URL (Book)
 
-url="https://emlak.az/"
-time.sleep(5)
+def scraping_and_sent():
+   url="https://emlak.az/"
+   time.sleep(5)
 
-# Request page
-headers = {"User-Agent": "Mozilla/5.0"}
-response = requests.get(url, headers=headers)
-soup = BeautifulSoup(response.text, "html.parser")
+   headers = {"User-Agent": "Mozilla/5.0"}
+   response = requests.get(url, headers=headers)
+   soup = BeautifulSoup(response.text, "html.parser")
 
 # Scrape listing
-emlak=soup.find_all("div", class_="ticket-item")[0:2]
+   emlak=soup.find_all("div", class_="ticket-item")[1:2]
 
 
-for product in emlak:
+   for product in emlak:
     
     price_tag = product.find("div", class_="price-ticket")
     attribute_tag = product.find("div", class_="description-ticket")
@@ -34,8 +34,12 @@ for product in emlak:
     attribute=attribute_tag.get_text(strip=True) if attribute_tag else ""
 
 #
-mesaj = f"""
+    mesaj = f"""
 🏠  <b>{attribute}</b>
 💰 Qiymət: <i>{price}</i>
 """
-bot.send_message(chat_id=CHAT_ID, text=mesaj, parse_mode="HTML")
+    bot.send_message(chat_id=CHAT_ID, text=mesaj, parse_mode="HTML")
+
+while True:
+  scraping_and_sent()
+  time.sleep(86400)
